@@ -9,6 +9,7 @@ Post.init(
         postId: {
             type: DataTypes.UUID,
             primaryKey: true,
+            defaultValue: DataTypes.UUIDV4
 
         },
         title: {
@@ -30,7 +31,7 @@ Post.init(
             allowNull: false,
             references: {
                 model: 'users',
-                key: 'id'
+                key: 'userId'
             },
         },
     },

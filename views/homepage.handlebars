@@ -1,1 +1,12 @@
-<h1>Monty's Tech Talks</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        {{#each posts as |post|}}
+        <div class="card m-3 bg-gradient justify-content-center" style="width: 18rem;">
+            <div class="bg-opacity-25 bg-secondary card-body rounded-pill text-break text-center">
+                <h5 class="card-title"><a href="/post/{{post.postId}}">{{post.title}}</a></h5>
+                <p class="card-text">{{post.content}}</p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

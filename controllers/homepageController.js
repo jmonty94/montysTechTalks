@@ -1,10 +1,18 @@
 const router = require('express').Router();
 // const apiController = require('./apiContoller');
-const { User } = require('./../models');
+const { User, Post } = require('./../models');
 
 
-router.get('/', (req,res) => {
-    res.render('homepage')
+router.get('/', async (req,res) => {
+try {
+    const postsFromDB = await Post.findAll();
+    const posts = postsFromDB.map(post => post.get({plain: true}));
+    res.render('homepage',{
+        posts
+    })
+} catch (error) {
+    
+}
 });
 
 module.exports = router;

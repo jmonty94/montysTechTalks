@@ -9,6 +9,7 @@ Comment.init(
         id: {
             type: DataTypes.UUID,
             primaryKey: true,
+            defaultValue: DataTypes.UUIDV4
         },
         comment: {
             type: DataTypes.STRING,
@@ -28,7 +29,7 @@ Comment.init(
             type: DataTypes.UUID,
             references: {
                 model: 'users',
-                key: 'id',
+                key: 'userId',
             },
         },
     },
