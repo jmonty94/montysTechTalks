@@ -11,8 +11,17 @@ try {
         posts
     })
 } catch (error) {
-    
+    res.status(500).json({ error })
 }
 });
+
+router.get('/signin', async (req, res) => {
+    res.render('signin');
+});
+
+router.get('/signup', async (req,res) => {
+    res.render('signup');
+});
+
 
 module.exports = router;
