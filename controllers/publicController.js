@@ -45,7 +45,6 @@ const getSignUpPage = async function (req, res) {
 
 const getPostPage = async (req, res) => {
     const postId = req.params.postId;
-    console.log(postId, 47);
     const signedIn = req.session.isLoggedIn;
     let currentUser;
     if (req.session.user) {
@@ -89,7 +88,6 @@ const getPostPage = async (req, res) => {
             postId: postId,
         }
     });
-    console.log(commentData, 91);
     const comments = commentData.map(comment => comment.get({plain: true}));
     res.render('post', {
         post,
