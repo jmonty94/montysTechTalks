@@ -2,9 +2,28 @@ const { User, Post, Comment } = require('../models');
 const bcrypt = require('bcryptjs');
 const sequelize = require('sequelize');
 
+
+const allUsers = async (req,res) => {
+    try {
+        const usersInDB = await User.findAll();
+
+        const allUsers = usersInDB.map(user => user.get({ plain: true }));
+        res.status(200).json(allUsers);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+};
+
 const createPost = async (req,res) => {
     try {
-        
+        console.log(req.body);
+        console.log(req.session);
+        const newPost = await Post.create({
+            title: req.body.title,
+            content: req.body.content,
+            userId: req.session.user.userId
+        });
+        res.status(200).json(newPost);
     } catch (error) {
         res.status(500).json({ error });
     }
@@ -93,7 +112,7 @@ const signInUser = async (req, res) => {
         if (!existingUser) {
             return res.status(401).json({ error: 'invalid credentials' });
         }
-        //console.log(existingUser);
+        console.log(existingUser);
         const passwordMatch = await bcrypt.compare(req.body.password, existingUser.password);
         //console.log(passwordMatch);
 
@@ -138,6 +157,8 @@ const signOutUser = async (req, res) => {
 
 
 module.exports = {
+    allUsers,
+    createPost,
     deletePost,
     getPosts,
     getPostById,

@@ -5,7 +5,7 @@ const apiController = require('./../../../controllers/apiController');
 //Root base routes
 router.route('/')
 .get(apiController.getPosts)
-// .post(apiController.createPost)
+.post(apiController.createPost)
 
 //ID base routes
 router.route('/:id')
