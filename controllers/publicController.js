@@ -1,5 +1,3 @@
-const router = require('express').Router();
-// const apiController = require('./apiContoller');
 const { Comment, User, Post,  } = require('../models');
 const sequelize = require('sequelize')
 
@@ -55,6 +53,7 @@ const getPostPage = async (req, res) => {
             'postId',
             'title',
             'content',
+            'createdAt',
             [
                 sequelize.literal(`(SELECT username FROM users WHERE posts.userId = users.userId)`),
                 'username',
@@ -66,11 +65,6 @@ const getPostPage = async (req, res) => {
         order: [
             ['createdAt', 'DESC']
         ],
-        attributes: [
-                    'commentId',
-                    'comment',
-                    'postId'
-                ],
         include: [
             {
                 model: User,
@@ -89,6 +83,7 @@ const getPostPage = async (req, res) => {
         }
     });
     const comments = commentData.map(comment => comment.get({plain: true}));
+    console.log(comments);
     res.render('post', {
         post,
         signedIn,
@@ -98,6 +93,23 @@ const getPostPage = async (req, res) => {
 
 };
 
+const getUserPage = async (req,res) => {
+    const signedIn = req.session.isLoggedIn;
+    const user = req.session.user
+    console.log(user.userid);
+    console.log(user);
+    const postData = await Post.findAll({
+        where: {
+            userid: user.userId
+        }
+    })
+    const posts = postData.map(post => post.get({plain: true}))
+    const username = user.username
+    res.render('user', {
+        signedIn, user, username, posts
+    })
+};
+
 
 
 module.exports = {
@@ -105,5 +117,6 @@ module.exports = {
     getHomePage,
     getPostPage,
     getSignInPage,
-    getSignUpPage
+    getSignUpPage,
+    getUserPage
 };

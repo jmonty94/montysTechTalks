@@ -8,12 +8,15 @@
                         <h1>{{post.title}}</h1>
                     </div>
                     <div id="username">
-                        <h3><a href="/{{post.username}}">{{post.username}}</a></h3>
+                        <h3>{{post.username}}</h3>
                     </div>
                 </div>
             </div>
             <div id="content" class="text-break">
                 <p>{{post.content}}</p>
+            </div>
+            <div id="createdOn">
+                <p>Posted at {{post.createdAt}}</p>
             </div>
         </div>
         <div id="comment-section" class="justify-content-center row">
@@ -28,8 +31,9 @@
             <div id="comments" class="bg-light border border-dark col-7 justify-content-center m-3 rounded-5 row text-break">
                 {{#each comments as |comment|}}
                 <div class="border border-dark col-7 text-wrap">
-                     <p>{{comment.user.username}}</p>
+                    <p>{{comment.user.username}}</p>
                     <p>{{comment.comment}}</p>
+                    <p>Posted at {{comment.createdAt}}</p>
                 </div>
                 {{/each}}
             </div>

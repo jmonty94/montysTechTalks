@@ -1,5 +1,5 @@
 const usernameInputEl = document.getElementById('usernameInput');
-const passwordInputEl = document.getElementById('password-input');
+const passwordInputEl = document.getElementById('passwordInput');
 const signUpBtn = document.getElementById('signUpButton');
 
 const signUpUser = async (event) => {
