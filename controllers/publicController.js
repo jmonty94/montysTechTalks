@@ -83,7 +83,6 @@ const getPostPage = async (req, res) => {
         }
     });
     const comments = commentData.map(comment => comment.get({plain: true}));
-    console.log(comments, 86);
     res.render('post', {
         post,
         signedIn,
@@ -185,7 +184,6 @@ const getUserPost = async (req, res) => {
         }
     });
     const comments = commentData.map(comment => comment.get({plain: true}));
-    console.log(comments, 86);
     res.render('userPost', {
         post,
         signedIn,

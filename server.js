@@ -25,6 +25,9 @@ const sessionSettings = {
     store: new SequelizeStore({
         db: sequelize,
     }),
+    cookie: {
+        expires: 60000
+    }
 };
 
 const app = express();
@@ -40,11 +43,11 @@ app.use(express.static('public'));
 app.use(expsesh(sessionSettings));
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
 // server listener + sequelize sync
-sequelize.sync({force: false}).then(() => {
+sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('server up'));
 });

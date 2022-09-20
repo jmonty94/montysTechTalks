@@ -17,7 +17,6 @@ const getComments = async (req, res) => {
     try {
         const allCommentsFromDb = await Comment.findAll();
         const comments = allCommentsFromDb.map(comment => comment.get({ plain: true }));
-        console.log(comments);
         res.status(200).json(comments);
     } catch (error) {
         res.status(500).json({ error });
@@ -153,14 +152,12 @@ const createComment = async (req, res) => {
     try {
         const comment = req.body.comment;
         const postId = req.body.postId;
-        console.log(postId);
         const userId = req.session.user.userId;
         if (!userId) {
             return res(400).json("Must be signed in to post comments");
         };
         const newComment = { comment: comment, postId: postId, userId: userId };
         const postedComment = await Comment.create(newComment);
-        console.log(postedComment, 162);
         res.status(200).json( postedComment );
     } catch (error) {
         res.status(500).json({ error });
@@ -182,7 +179,6 @@ const createPost = async (req, res) => {
 
 const signInUser = async (req, res) => {
     try {
-        //console.log(req.body);
         const existingUser = await User.findOne({
             where: {
                 username: req.body.username
@@ -192,7 +188,6 @@ const signInUser = async (req, res) => {
         if (!existingUser) {
             return res.status(401).json({ error: 'invalid credentials' });
         }
-        console.log(existingUser);
         const passwordMatch = await bcrypt.compare(req.body.password, existingUser.password);
 
         if (!passwordMatch) {
@@ -212,9 +207,7 @@ const signInUser = async (req, res) => {
 
 const signUpUser = async (req, res) => {
     try {
-        console.log(req.body);
         const newUser = await User.create(req.body);
-        console.log(newUser);
         req.session.save(() => {
             req.session.user = newUser;
             req.session.isLoggedIn = true;
