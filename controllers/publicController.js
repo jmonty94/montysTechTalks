@@ -93,6 +93,31 @@ const getPostPage = async (req, res) => {
 
 };
 
+const getUpdatePost = async (req,res) => {
+    const signedIn = req.session.isLoggedIn;
+    let currentUser;
+    if (req.session.user) {
+        currentUser = (req.session.user.username) ? req.session.user.username : undefined
+    }
+    const postId = req.params.postId;
+    const postData = await Post.findByPk(postId, {
+        attributes: [
+            'postId',
+            'title',
+            'content',
+            [
+                sequelize.literal(`(SELECT username FROM users WHERE posts.userId = users.userId)`),
+                'username',
+            ],
+        ]
+    });
+    const post = postData.get({ plain: true });
+    res.render('updatePost', 
+    {
+        post, signedIn, currentUser
+    })
+};
+
 const getUserPage = async (req,res) => {
     const signedIn = req.session.isLoggedIn;
     const user = req.session.user
@@ -175,6 +200,7 @@ module.exports = {
     getHomePage,
     getUserPost,
     getPostPage,
+    getUpdatePost,
     getSignInPage,
     getSignUpPage,
     getUserPage

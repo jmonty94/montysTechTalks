@@ -27,6 +27,8 @@
                 <br>
                 <button id="comment-button" class="btn btn-dark col-12">Submit</button>
             </div>
+            {{else}}
+            <h4>Please sign in to leave a comment</h4>
             {{/if}}
             <div id="comments" class="bg-light border border-dark col-7 justify-content-center m-3 rounded-5 row text-break">
                 {{#each comments as |comment|}}

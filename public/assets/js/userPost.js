@@ -1,21 +1,28 @@
 const deleteBtn = document.getElementById(`deleteBtn`);
 const editBtn = document.getElementById(`editBtn`);
 
-const deletePost = async (event) => {
+const deleteConfirm = (event) => {
     event.preventDefault();
+    if (confirm('Are you sure you would like to proceed')) {
+        deletePost();
+    }
+}
+
+const deletePost = async () => {
     const postId = window.location.pathname.split('/').pop();
+    const postUser = window.location.pathname.split('/').at(1)
     try {
-        const response = await fetch(`/api/post/${postId}`, {
+        const response = await fetch(`/api/posts/${postId}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": 'application/json',
             },
             body: JSON.stringify({
-                postId: postId
+                postId
             }),
         });
         await response.json();
-        window.location = '/';
+        window.location = `/${postUser}`;
     } catch (error) {
         alert(error)
     }
@@ -24,14 +31,10 @@ const deletePost = async (event) => {
 const updatePost = async (event) => {
     event.preventDefault();
     const postId = window.location.pathname.split('/').pop();
-    try {
-        const response = await fetch(`/api/post/${postId}`, {
-            method: 'PUT',
-            
-        })
-    } catch (error) {
-        alert(error)
-    }
+    const postUser = window.location.pathname.split('/').at(1)
+    console.log(postUser);
+    window.location.href= `/${postUser}/update/${postId}`;
 }
 
-deleteBtn?.addEventListener('click', deletePost);
+deleteBtn?.addEventListener('click', deleteConfirm);
+editBtn?.addEventListener('click', updatePost);
