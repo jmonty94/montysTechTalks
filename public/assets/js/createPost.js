@@ -5,7 +5,6 @@ const modalEl = document.getElementById(`myModal`)
 
 const createPost = async (event) => {
     event.preventDefault();
-    console.log(`hit createPost.js line 7`);
     const title = postTitleEl.value;
     const content = postContentEl.value;
     if (title.trim().length === 0 || content.trim().length === 0) {

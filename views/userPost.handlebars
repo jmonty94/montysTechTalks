@@ -1,6 +1,10 @@
 <div class="container d-lg-grid pt-5 text-center">
     <div
         class="bg-gradient bg-opacity-75 bg-secondary border border-2 border-dark justify-content-center rounded-2 row shadow-lg">
+        <div class="row justify-content-between">
+            <button id="deleteBtn" class="btn btn-primary col-2 rounded"><i class="bi bi-trash-fill"></i></button>
+            <button id="editBtn" class="btn btn-primary col-2 rounded"><i class="bi bi-pencil"></i></button>
+        </div>
         <div id="post">
             <div id="topbar">
                 <div id="title-username" class="col-7 m-auto">
@@ -23,12 +27,13 @@
             {{#if signedIn}}
             <div class="col-7">
                 <input type="text" id="comment-input" class="form-control input-group-text text-break text-wrap"
-                placeholder="Leave a comment"/>
+                    placeholder="Leave a comment" />
                 <br>
                 <button id="comment-button" class="btn btn-dark col-12">Submit</button>
             </div>
             {{/if}}
-            <div id="comments" class="bg-light border border-dark col-7 justify-content-center m-3 rounded-5 row text-break">
+            <div id="comments"
+                class="bg-light border border-dark col-7 justify-content-center m-3 rounded-5 row text-break">
                 {{#each comments as |comment|}}
                 <div class="border border-dark col-7 text-wrap">
                     <p>{{comment.user.username}}</p>
@@ -40,4 +45,5 @@
         </div>
     </div>
 </div>
+<script src="/assets/js/userPost.js"></script>
 <script src="/assets/js/post.js"></script>

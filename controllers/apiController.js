@@ -17,6 +17,7 @@ const getComments = async (req, res) => {
     try {
         const allCommentsFromDb = await Comment.findAll();
         const comments = allCommentsFromDb.map(comment => comment.get({ plain: true }));
+        console.log(comments);
         res.status(200).json(comments);
     } catch (error) {
         res.status(500).json({ error });
@@ -152,12 +153,15 @@ const createComment = async (req, res) => {
     try {
         const comment = req.body.comment;
         const postId = req.body.postId;
+        console.log(postId);
         const userId = req.session.user.userId;
         if (!userId) {
             return res(400).json("Must be signed in to post comments");
         };
         const newComment = { comment: comment, postId: postId, userId: userId };
-        await Comment.create(newComment);
+        const postedComment = await Comment.create(newComment);
+        console.log(postedComment, 162);
+        res.status(200).json( postedComment );
     } catch (error) {
         res.status(500).json({ error });
     }

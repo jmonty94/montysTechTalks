@@ -3,10 +3,6 @@ const signOutButtonHeaderEl = document.getElementById('sign-out-button-header');
 const signInButtonHeaderEl = document.getElementById('sign-in-button-header');
 const signUpButtonHeaderEl = document.getElementById('sign-up-button-header');
 
-const goToSettingsPage = function() {
-    window.location.href = `/settings`;
-}
-
 const signOutUser = async (event) => {
     event.preventDefault();
     console.log('signing out');
@@ -32,7 +28,6 @@ const goToSignUpPage = (event) => {
     window.location.href = '/signup';
 }
 
-settingsButtonHeaderEl?.addEventListener('click', goToSettingsPage);
 signOutButtonHeaderEl?.addEventListener('click', signOutUser);
 signInButtonHeaderEl?.addEventListener('click', goToSignInPage);
 signUpButtonHeaderEl?.addEventListener('click', goToSignUpPage);

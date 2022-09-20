@@ -7,6 +7,7 @@ router.route('/signup').get(publicController.getSignUpPage)
 router.route('/createPost').get(publicController.getCreatePost);
 router.route('/posts/:postId').get(publicController.getPostPage);
 router.route('/:username').get(publicController.getUserPage);
+router.route('/:username/:postId').get(publicController.getUserPost);
 router.route('/').get(publicController.getHomePage);
 
 
