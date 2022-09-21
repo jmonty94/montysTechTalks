@@ -27,7 +27,6 @@ const seeder = async () => {
     const allPosts = await Post.findAll({
         attributes: ['postId'],
     });
-    console.log(allPosts[1].d,30);
     let postindex = 0;
     userindex = 0;
     for(let i=0; i<comments.length; i++) {

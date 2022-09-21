@@ -3,10 +3,10 @@ const sequelize = require('sequelize')
 
 
 const getHomePage = async function (req, res) {
-    const signedIn = req.session.isLoggedIn;
+    const signedIn = req.session?.isLoggedIn;
     let currentUser;
     if (req.session.user) {
-        currentUser = (req.session.user.username) ? req.session.user.username : undefined
+        currentUser = (req.session?.user?.username) ? req.session?.user?.username : undefined
     }
     try {
         const postsFromDB = await Post.findAll();
