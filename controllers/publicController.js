@@ -1,4 +1,4 @@
-const { Comment, User, Post,  } = require('../models');
+const { Comment, User, Post, } = require('../models');
 const sequelize = require('sequelize')
 
 
@@ -82,7 +82,7 @@ const getPostPage = async (req, res) => {
             postId: postId,
         }
     });
-    const comments = commentData.map(comment => comment.get({plain: true}));
+    const comments = commentData.map(comment => comment.get({ plain: true }));
     res.render('post', {
         post,
         signedIn,
@@ -92,7 +92,7 @@ const getPostPage = async (req, res) => {
 
 };
 
-const getUpdatePost = async (req,res) => {
+const getUpdatePost = async (req, res) => {
     const signedIn = req.session.isLoggedIn;
     let currentUser;
     if (req.session.user) {
@@ -111,15 +111,21 @@ const getUpdatePost = async (req,res) => {
         ]
     });
     const post = postData.get({ plain: true });
-    res.render('updatePost', 
-    {
-        post, signedIn, currentUser
-    })
+    res.render('updatePost',
+        {
+            post, signedIn, currentUser
+        })
 };
 
-const getUserPage = async (req,res) => {
+const getUserPage = async (req, res) => {
     const signedIn = req.session.isLoggedIn;
-    const user = req.session.user
+    const user = req.session.user;
+    console.log(user);
+    if (!user) {
+        console.log(125, `public`);
+        res.status(403).json({ error: 'Unauthorized' });
+        return
+    }
     const postData = await Post.findAll({
         attributes: [
             'postId',
@@ -132,14 +138,14 @@ const getUserPage = async (req,res) => {
             ],
         ],
         where: {
-            userid: user.userId
+            userId: user.userId
         },
-    })
-    const posts = postData.map(post => post.get({plain: true}))
-    const username = user.username
+    });
+    const posts = postData.map(post => post.get({ plain: true }));
+    const username = user.username;
     res.render('user', {
         signedIn, user, username, posts
-    })
+    });
 };
 
 const getUserPost = async (req, res) => {
@@ -183,7 +189,7 @@ const getUserPost = async (req, res) => {
             postId: postId,
         }
     });
-    const comments = commentData.map(comment => comment.get({plain: true}));
+    const comments = commentData.map(comment => comment.get({ plain: true }));
     res.render('userPost', {
         post,
         signedIn,

@@ -10,7 +10,7 @@ const deleteConfirm = (event) => {
 
 const deletePost = async () => {
     const postId = window.location.pathname.split('/').pop();
-    const postUser = window.location.pathname.split('/').at(1)
+    const postUser = window.location.pathname.split('/').at(2)
     try {
         const response = await fetch(`/api/posts/${postId}`, {
             method: 'DELETE',
@@ -22,7 +22,7 @@ const deletePost = async () => {
             }),
         });
         await response.json();
-        window.location = `/${postUser}`;
+        window.location = `/users/${postUser}`;
     } catch (error) {
         alert(error)
     }

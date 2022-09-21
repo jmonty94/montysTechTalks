@@ -6,7 +6,7 @@ const updatePost = async (event) => {
     event.preventDefault();
     const title = postTitleEl.value;
     const content = postContentEl.value;
-    const username = window.location.pathname.split('/').at(1);
+    const username = window.location.pathname.split('/').at(2);
     const postId = window.location.pathname.split('/').pop();
     if (title.trim().length === 0 || content.trim().length === 0) {
         alert('Both the title and content sections must be filled in in order to create a new post')
@@ -23,7 +23,7 @@ const updatePost = async (event) => {
             }),
         });
         await response.json();
-        window.location.href = `/${username}`;
+        window.location.href = `/users/${username}`;
     } catch (error) {
         alert(error)
     }
